@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hagglex/view/screens/auth/login_screen.dart';
 import 'package:hagglex/view/screens/splash/splash_screen.dart';
 import 'package:hagglex/view/utils/pallet.dart';
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'HaggleX',
       theme: ThemeData(
           primaryColor: Pallet.primaryColor, accentColor: Pallet.accentColor),
-      home: SplashScreen(),
+      home: LoginScreen(),
     );
   }
 }
