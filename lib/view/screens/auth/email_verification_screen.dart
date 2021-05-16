@@ -30,29 +30,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
 
   bool _autovalidate = false;
 
-  var countryCode = "+234";
-  var country = "Nigeria";
-  var phoneController = TextEditingController();
-
-  String email;
-  String username;
-  String password;
-  String phoneNumberDetails;
-  String phoneNumber;
-  String phone;
-  String flag;
-  String currency;
-  String referralCode;
-
-  @override
-  void dispose() {
-    phoneController.dispose();
-    super.dispose();
-  }
+  String code;
 
   final AppRouter router = Get.find();
   final AppController appController = Get.find();
-  final AuthController controller = Get.find();
+  final AuthController controller = AuthController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,27 +44,39 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
       value: overlay,
       child: GradientBackground(
         child: SafeArea(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  EmptySpace.h2(),
-                  FlatButton(
-                      color: Colors.white.withOpacity(0.2),
-                      shape: StadiumBorder(),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.chevron_left,
-                        color: Colors.white,
-                        size: 28,
-                      ))
-                ],
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    FlatButton(
+                        padding: EdgeInsets.zero,
+                        minWidth: 50,
+                        color: Colors.white.withOpacity(0.2),
+                        shape: StadiumBorder(),
+                        onPressed: () {
+                          appController.logout();
+                          router.login();
+                        },
+                        child: Icon(
+                          Icons.chevron_left,
+                          color: Colors.white,
+                          size: 36,
+                        ))
+                  ],
+                ),
+                EmptySpace.v4(),
+                Text(
+                  "Verify your account",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
+                ),
+                EmptySpace.v4(),
+                Expanded(
                   child: Material(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16.0),
@@ -98,131 +92,48 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 EmptySpace(multiple: 6),
-                                Text(
-                                  "Create a new account",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                Image.asset(
+                                  "assets/img/verify_email.png",
+                                  height: 80,
                                 ),
                                 EmptySpace.v4(),
-                                HTextFormField(
-                                  validator: Validators.validateEmail(),
-                                  labelText: "Email Address",
-                                  onSaved: (value) {
-                                    email = value.trim();
-                                  },
-                                  inverted: true,
-                                ),
-                                EmptySpace.v4(),
-                                HTextFormField(
-                                  validator: Validators.validatePlainPass(
-                                      minLength: 8),
-                                  obscureText: true,
-                                  labelText: "Password (Min 8 characters)",
-                                  onSaved: (value) {
-                                    password = value.trim();
-                                  },
-                                  inverted: true,
-                                ),
-                                EmptySpace.v4(),
+                                Center(
+                                    child: Text(
+                                  "We just sent a verification code to your email.\nPlease enter the code",
+                                  style: TextStyle(fontSize: 16),
+                                  textAlign: TextAlign.center,
+                                )),
+                                EmptySpace(multiple: 6),
                                 HTextFormField(
                                   validator: Validators.validateString(),
-                                  labelText: "Create a username",
+                                  labelText: "Verification Code",
                                   onSaved: (value) {
-                                    username = value.trim();
+                                    code = value.trim();
                                   },
                                   inverted: true,
                                 ),
-                                EmptySpace.v4(),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: 60,
-                                      width: 120,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: Colors.grey[200],
-                                      ),
-                                      child: CountryListPick(
-                                        appBar: getAppBar(context,
-                                            title: "Select country"),
-
-                                        // if you need custom picker use this
-                                        pickerBuilder:
-                                            (context, CountryCode countryCode) {
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                countryCode.flagUri,
-                                                package: 'country_list_pick',
-                                                height: 20,
-                                                width: 30,
-                                                fit: BoxFit.fill,
-                                              ),
-                                              EmptySpace(),
-                                              Text(
-                                                "(${countryCode.dialCode})",
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ],
-                                          );
-                                        },
-
-                                        // To disable option set to false
-                                        theme: CountryTheme(
-                                          isShowFlag: true,
-                                          isShowTitle: true,
-                                          isShowCode: true,
-                                          isDownIcon: false,
-                                          showEnglishName: true,
-                                        ),
-                                        // Set default value
-                                        initialSelection: "NG",
-                                        onChanged: (CountryCode code) {
-                                          setState(() {
-                                            country = code.name;
-                                            countryCode = code.dialCode;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    EmptySpace(),
-                                    Expanded(
-                                      child: HTextFormField(
-                                        validator: (value) {
-                                          return Validators.validateSimplePhone(
-                                              value);
-                                        },
-                                        labelText: "Enter your phone number",
-                                        onSaved: (value) {
-                                          phone = value.trim();
-                                        },
-                                        inverted: true,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                EmptySpace.v4(),
-                                HTextFormField(
-                                  labelText: "Referral Code (optional)",
-                                  onSaved: (value) {
-                                    referralCode = value.trim();
-                                  },
-                                  inverted: true,
-                                ),
-                                EmptySpace.v4(),
-                                Text(
-                                    "By signing, you agree to HaggleX terms and privacy policy."),
                                 EmptySpace.v4(),
                                 HButton.gradient(
                                     loading: _loading,
-                                    labelText: "SIGN UP",
-                                    onPressed: signup),
+                                    labelText: "VERIFY ME",
+                                    onPressed: verify),
+                                EmptySpace.v4(),
+                                Center(
+                                    child: Text(
+                                  "This code will expire in 10 minutes.",
+                                  style: Theme.of(context).textTheme.caption,
+                                )),
+                                EmptySpace.v4(),
+                                TextButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      "Resend Code",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          decoration: TextDecoration.underline,
+                                          color: Colors.black,
+                                          fontSize: 16),
+                                    )),
                                 EmptySpace.v4(),
                               ],
                             ),
@@ -230,49 +141,25 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
                         ),
                       )),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  signup() async {
+  verify() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       try {
-        if (phone.startsWith('0')) {
-          phone = phone.substring(1);
-        }
-
-        var phoneNumber = countryCode + phone;
-        Map<String, dynamic> data = {
-          "email": email,
-          "username": username,
-          "password": password,
-          "phonenumber": phoneNumber,
-          "phoneNumberDetails": {
-            "phoneNumber": phone,
-            "callingCode": countryCode,
-            "flag": "nigeria",
-          },
-          "country": country,
-          "currency": "NGN",
-        };
-
-        if (referralCode != null) {
-          data["referralCode"] = referralCode;
-        }
-
-        toggleLoading();
-        var usr = await controller.createAccount(data);
+        toggleVerifiying();
+        var usr = await controller.verifyEmail(code);
         appController.user = usr;
-        router.home();
-        toggleLoading();
+        router.emailVerificationSuccess();
+        toggleVerifiying();
       } catch (err) {
-        toggleLoading();
-
+        toggleVerifiying();
         showError(
             title: "Error creating account", message: getErrorMessage(err));
       }
@@ -286,10 +173,31 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
     }
   }
 
+  resendCode() async {
+    try {
+      toggleResending();
+      var usr = await controller.resendCode();
+      appController.user = usr;
+      router.home();
+      toggleResending();
+    } catch (err) {
+      toggleResending();
+
+      showError(title: "Error resending code", message: getErrorMessage(err));
+    }
+  }
+
   var _loading = false;
-  toggleLoading() {
+  toggleVerifiying() {
     setState(() {
       _loading = !_loading;
+    });
+  }
+
+  var _resending = false;
+  toggleResending() {
+    setState(() {
+      _resending = !_resending;
     });
   }
 }

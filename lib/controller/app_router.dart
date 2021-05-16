@@ -40,13 +40,26 @@ class Routes {
   static getPages() {
     return [
       GetPage(name: SPLASH, page: () => SplashScreen()),
-      GetPage(name: HOME, page: () => HomeScreen()),
-      GetPage(name: LOGIN, page: () => LoginScreen()),
-      GetPage(name: SIGNUP, page: () => SignupScreen()),
-      GetPage(name: VERIFY_EMAIL, page: () => EmailVerificationScreen()),
+      GetPage(
+          name: HOME,
+          page: () => HomeScreen(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: LOGIN,
+          page: () => LoginScreen(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: SIGNUP,
+          page: () => SignupScreen(),
+          transition: Transition.leftToRight),
+      GetPage(
+          name: VERIFY_EMAIL,
+          page: () => EmailVerificationScreen(),
+          transition: Transition.leftToRight),
       GetPage(
           name: EMAIL_VERIFICATION_SUCCESS,
-          page: () => EmailVerificationSuccess())
+          page: () => EmailVerificationSuccess(),
+          transition: Transition.leftToRight)
     ];
   }
 }

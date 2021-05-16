@@ -14,4 +14,10 @@ class AuthController extends GetxController {
   Future<User> createAccount(Map<String, dynamic> data) {
     return authService.register(data);
   }
+
+  Future<User> verifyEmail(String code) {
+    return authService.verifyUser(code);
+  }
+
+  resendCode() {}
 }

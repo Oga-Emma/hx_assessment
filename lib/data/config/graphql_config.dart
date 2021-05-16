@@ -10,7 +10,7 @@ class GraphQlConfig {
   Future<GQLResponse> query(
       {String query,
       Map<String, dynamic> variables,
-      Map<String, dynamic> headers}) async {
+      Map<String, String> headers}) async {
     try {
       final res = await client.query(
           query: query, variables: variables, headers: headers);
@@ -25,7 +25,7 @@ class GraphQlConfig {
   Future<GQLResponse> mutate(
       {String mutation,
       Map<String, dynamic> variables,
-      Map<String, dynamic> headers}) async {
+      Map<String, String> headers}) async {
     try {
       final res = await client.mutation(
           mutation: mutation, variables: variables, headers: headers);

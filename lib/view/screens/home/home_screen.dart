@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hagglex/controller/app_controller.dart';
@@ -22,28 +23,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (appController.user.emailVerified) {
+    if (!appController.user.emailVerified) {
       Future.delayed(Duration.zero, () {
         appRouter.emailVerificationScreen();
       });
       return Container();
     }
-    return Scaffold(
-        body: Column(
-      children: [
-        Expanded(child: DashboardScreen()),
-        HBottomNavigationBar(
-          selectedIndex: currentIndex,
-          onSelect: (index) {
-            if (currentIndex != index && index != 2) {
-              setState(() {
-                currentIndex = index;
-              });
-            }
-          },
-        ),
-      ],
-    ));
+    var overlay = SystemUiOverlayStyle.light
+        .copyWith(statusBarColor: Pallet.primaryColor);
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: overlay,
+      child: Scaffold(
+          body: Column(
+        children: [
+          Expanded(child: DashboardScreen()),
+          HBottomNavigationBar(
+            selectedIndex: currentIndex,
+            onSelect: (index) {
+              if (currentIndex != index && index != 2) {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+            },
+          ),
+        ],
+      )),
+    );
   }
 }
 
@@ -111,8 +117,8 @@ class HBottomNavigationBar extends StatelessWidget {
               Image.asset(
                 "assets/img/ic_$icon.png",
                 color: selected ? Pallet.primaryColor : Colors.grey,
-                width: 28,
-                height: 28,
+                width: 24,
+                height: 24,
               ),
               EmptySpace(multiple: 0.5),
               Text(

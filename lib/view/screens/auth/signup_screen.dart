@@ -66,6 +66,8 @@ class _SignupScreenState extends State<SignupScreen> with ErrorHandler {
                 children: [
                   EmptySpace.h2(),
                   FlatButton(
+                      padding: EdgeInsets.zero,
+                      minWidth: 50,
                       color: Colors.white.withOpacity(0.2),
                       shape: StadiumBorder(),
                       onPressed: () {
@@ -74,8 +76,8 @@ class _SignupScreenState extends State<SignupScreen> with ErrorHandler {
                       child: Icon(
                         Icons.chevron_left,
                         color: Colors.white,
-                        size: 28,
-                      ))
+                        size: 36,
+                      )),
                 ],
               ),
               Expanded(

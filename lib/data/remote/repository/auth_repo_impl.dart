@@ -58,4 +58,35 @@ class AuthRepoImpl extends GraphQlConfig implements AuthRepo {
 
     return AuthResponse.fromMap(response.data['register']);
   }
+
+  @override
+  Future<AuthResponse> verifyUser(String token, String code) async {
+    var mutation = r'''
+    mutation emailVerification($data: VerifyUserInput!) {
+      verifyUser(data: $data){
+        user{
+            _id,
+            email,
+            phonenumber,
+            username,
+            kycStatus,
+            emailVerified,
+            phoneNumberVerified,
+            active,
+            suspended,
+            createdAt
+          },
+          token
+      }
+  }
+    ''';
+
+    var response = await mutate(mutation: mutation, variables: {
+      "data": {"code": int.parse("$code")}
+    }, headers: {
+      "Authorization": "Bearer $token"
+    });
+
+    return AuthResponse.fromMap(response.data['verifyUser']);
+  }
 }

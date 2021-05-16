@@ -25,6 +25,13 @@ class AuthServiceImpl implements AuthService {
     return response.user;
   }
 
+  @override
+  Future<User> verifyUser(String code) async {
+    var response = await authRepo.verifyUser(await cache.getToken(), code);
+    saveToCache(response);
+    return response.user;
+  }
+
   saveToCache(AuthResponse response) {
     cache.saveUser(response.user);
     cache.saveToken(response.token);
