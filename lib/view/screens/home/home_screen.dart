@@ -61,45 +61,45 @@ class HBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      child: Container(
-        height: 100,
-        child: Row(
-          children: [
-            navItem(
-                icon: "dashboard",
-                label: "Home",
-                selected: selectedIndex == 0,
-                onTap: () => onSelect(0)),
-            navItem(
-                icon: "wallet",
-                label: "Wallet",
-                selected: selectedIndex == 1,
-                onTap: () => onSelect(1)),
-            SizedBox(
-              height: 100,
-              width: 100,
-              child: InkWell(
-                onTap: () => onSelect(2),
-                child: Image.asset(
-                  "assets/img/ic_transfer.png",
-                  fit: BoxFit.contain,
-                ),
+    return Container(
+      height: 80,
+      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+        BoxShadow(color: Colors.grey, blurRadius: 2),
+      ]),
+      child: Row(
+        children: [
+          navItem(
+              icon: "dashboard",
+              label: "Home",
+              selected: selectedIndex == 0,
+              onTap: () => onSelect(0)),
+          navItem(
+              icon: "wallet",
+              label: "Wallet",
+              selected: selectedIndex == 1,
+              onTap: () => onSelect(1)),
+          SizedBox(
+            height: 100,
+            width: 100,
+            child: InkWell(
+              onTap: () => onSelect(2),
+              child: Image.asset(
+                "assets/img/ic_transfer.png",
+                fit: BoxFit.contain,
               ),
             ),
-            navItem(
-                icon: "save",
-                label: "Cryptosave",
-                selected: selectedIndex == 3,
-                onTap: () => onSelect(3)),
-            navItem(
-                icon: "more",
-                label: "More",
-                selected: selectedIndex == 4,
-                onTap: () => onSelect(4)),
-          ],
-        ),
+          ),
+          navItem(
+              icon: "save",
+              label: "Cryptosave",
+              selected: selectedIndex == 3,
+              onTap: () => onSelect(3)),
+          navItem(
+              icon: "more",
+              label: "More",
+              selected: selectedIndex == 4,
+              onTap: () => onSelect(4)),
+        ],
       ),
     );
   }

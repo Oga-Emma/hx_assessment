@@ -33,6 +33,8 @@ dependencies:
   graphql_flutter:
   simple_gql: ^1.2.0
 
+  badges: ^2.0.1
+
   country_list_pick: ^1.0.1+4
 
   helper_widgets:

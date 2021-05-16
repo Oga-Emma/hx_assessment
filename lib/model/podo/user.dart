@@ -23,6 +23,8 @@ class User {
     createdAt = data["createdAt"];
   }
 
+  get initials => "$username".substring(0, 2);
+
   Map<String, dynamic> toMap() {
     return {
       "_id": id,

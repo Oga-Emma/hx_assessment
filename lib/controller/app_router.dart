@@ -43,7 +43,7 @@ class Routes {
       GetPage(
           name: HOME,
           page: () => HomeScreen(),
-          transition: Transition.leftToRight),
+          transition: Transition.rightToLeft),
       GetPage(
           name: LOGIN,
           page: () => LoginScreen(),
@@ -51,15 +51,15 @@ class Routes {
       GetPage(
           name: SIGNUP,
           page: () => SignupScreen(),
-          transition: Transition.leftToRight),
+          transition: Transition.rightToLeft),
       GetPage(
           name: VERIFY_EMAIL,
           page: () => EmailVerificationScreen(),
-          transition: Transition.leftToRight),
+          transition: Transition.rightToLeft),
       GetPage(
           name: EMAIL_VERIFICATION_SUCCESS,
           page: () => EmailVerificationSuccess(),
-          transition: Transition.leftToRight)
+          transition: Transition.rightToLeft)
     ];
   }
 }
