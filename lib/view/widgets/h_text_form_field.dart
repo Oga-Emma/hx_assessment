@@ -65,6 +65,7 @@ class HTextFormField extends StatelessWidget {
       textAlign: textAlign,
       minLines: multiLine ? minLines : 1,
       maxLines: multiLine ? minLines * 2 : 1,
+      style: TextStyle(color: color),
       textInputAction:
           isLastTextField ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (_) =>

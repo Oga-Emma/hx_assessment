@@ -12,8 +12,9 @@ class GraphQlConfig {
       Map<String, dynamic> variables,
       Map<String, dynamic> headers}) async {
     try {
-      return await client.query(
+      final res = await client.query(
           query: query, variables: variables, headers: headers);
+      return handleErrors(res);
     } on GQLError catch (e) {
       throw e;
     } catch (e) {
@@ -26,12 +27,19 @@ class GraphQlConfig {
       Map<String, dynamic> variables,
       Map<String, dynamic> headers}) async {
     try {
-      return await client.mutation(
+      final res = await client.mutation(
           mutation: mutation, variables: variables, headers: headers);
+
+      return handleErrors(res);
     } on GQLError catch (e) {
       throw e;
     } catch (e) {
       throw e;
     }
+  }
+
+  //Todo: abstract error handling here
+  Future<GQLResponse> handleErrors(GQLResponse res) async {
+    return res;
   }
 }

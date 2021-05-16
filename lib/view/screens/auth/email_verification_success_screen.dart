@@ -8,8 +8,8 @@ import 'package:hagglex/view/utils/assets.dart';
 import 'package:hagglex/view/widgets/gradient_background.dart';
 import 'package:helper_widgets/empty_space.dart';
 
-class SplashScreen extends StatelessWidget {
-  SplashScreen({Key key}) : super(key: key);
+class EmailVerificationSuccess extends StatelessWidget {
+  EmailVerificationSuccess({Key key}) : super(key: key);
 
   final AppRouter router = Get.find();
   final AppController appController = Get.find();

@@ -16,14 +16,16 @@ import 'package:helper_widgets/empty_space.dart';
 import 'package:helper_widgets/error_handler.dart';
 import 'package:helper_widgets/validators.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key key}) : super(key: key);
+class EmailVerificationScreen extends StatefulWidget {
+  const EmailVerificationScreen({Key key}) : super(key: key);
 
   @override
-  _SignupScreenState createState() => _SignupScreenState();
+  _EmailVerificationScreenState createState() =>
+      _EmailVerificationScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> with ErrorHandler {
+class _EmailVerificationScreenState extends State<EmailVerificationScreen>
+    with ErrorHandler {
   var formKey = GlobalKey<FormState>();
 
   bool _autovalidate = false;

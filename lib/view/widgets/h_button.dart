@@ -29,41 +29,42 @@ class HButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (gradient) {
-      return Container(
-        height: 58,
-        width: double.maxFinite,
-        child: loading
-            ? LoadingSpinner(color: Colors.white)
-            : InkWell(
-                onTap: onPressed,
-                child: Text(
+      return InkWell(
+        onTap: loading ? null : onPressed,
+        child: Container(
+          height: 58,
+          width: double.maxFinite,
+          child: loading
+              ? LoadingSpinner(color: Colors.white)
+              : Text(
                   labelText,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
-                )),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            gradient: LinearGradient(colors: [
-              Pallet.primaryColor,
-              Pallet.primaryLight,
-            ])),
+                ),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              gradient: LinearGradient(colors: [
+                Pallet.primaryColor,
+                Pallet.primaryLight,
+              ])),
+        ),
       );
     }
 
     return SizedBox(
       height: 58,
       width: double.maxFinite,
-      child: loading
-          ? LoadingSpinner(color: Pallet.primaryColor)
-          : MaterialButton(
-              color: Theme.of(context).accentColor,
-              child: Text(
-                labelText,
-                style: TextStyle(
-                    color: Pallet.primaryColor, fontWeight: FontWeight.bold),
-              ),
-              onPressed: loading ? null : onPressed),
+      child: MaterialButton(
+          color: Theme.of(context).accentColor,
+          child: loading
+              ? LoadingSpinner(color: Pallet.primaryColor)
+              : Text(
+                  labelText,
+                  style: TextStyle(
+                      color: Pallet.primaryColor, fontWeight: FontWeight.bold),
+                ),
+          onPressed: loading ? () {} : onPressed),
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:hagglex/controller/app_controller.dart';
+import 'package:hagglex/controller/app_router.dart';
 import 'package:hagglex/view/screens/home/dashboard/dashboard_screen.dart';
 import 'package:hagglex/view/utils/pallet.dart';
 import 'package:helper_widgets/empty_space.dart';
@@ -13,8 +16,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
+
+  AppController appController = Get.find();
+  AppRouter appRouter = Get.find();
+
   @override
   Widget build(BuildContext context) {
+    if (appController.user.emailVerified) {
+      Future.delayed(Duration.zero, () {
+        appRouter.emailVerificationScreen();
+      });
+      return Container();
+    }
     return Scaffold(
         body: Column(
       children: [
