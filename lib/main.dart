@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hagglex/controller/app_controller.dart';
+import 'package:hagglex/di/di_setup.dart';
 import 'package:hagglex/view/screens/auth/login_screen.dart';
+import 'package:hagglex/view/screens/auth/signup_screen.dart';
+import 'package:hagglex/view/screens/home/dashboard/dashboard_screen.dart';
+import 'package:hagglex/view/screens/home/home_screen.dart';
 import 'package:hagglex/view/screens/splash/splash_screen.dart';
 import 'package:hagglex/view/utils/pallet.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await initialization.then((value) {
-  //   // Get.put(AppController());
-  //   // Get.put(UserController());
-  //   // Get.put(ProducsController());
-  //   // Get.put(CartController());
-  //   // Get.put(PaymentsController());
-  // });
+  await initDependencyInjection();
   runApp(MyApp());
 }
 
@@ -25,7 +24,10 @@ class MyApp extends StatelessWidget {
       title: 'HaggleX',
       theme: ThemeData(
           primaryColor: Pallet.primaryColor, accentColor: Pallet.accentColor),
-      home: LoginScreen(),
+      home: SplashScreen(),
+      onInit: () {
+        Get.put(AppController());
+      },
     );
   }
 }

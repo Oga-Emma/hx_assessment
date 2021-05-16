@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hagglex/view/screens/auth/login_screen.dart';
 import 'package:hagglex/view/utils/assets.dart';
+import 'package:hagglex/view/widgets/gradient_background.dart';
 import 'package:helper_widgets/empty_space.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -7,9 +10,12 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: Center(
+    Future.delayed(Duration(seconds: 3), () {
+      Get.to(LoginScreen());
+    });
+
+    return GradientBackground(
+      child: Center(
           child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
