@@ -20,11 +20,11 @@ class SplashScreen extends StatelessWidget {
           future: appController.getUserFromCache(),
           builder: (context, snapshot) {
             if (snapshot.hasError || (snapshot.hasData && !snapshot.data)) {
-              Future.delayed(Duration.zero, () {
+              Future.delayed(Duration(seconds: 3), () {
                 router.login();
               });
             } else if (snapshot.hasData && snapshot.data) {
-              Future.delayed(Duration(seconds: 3), () {
+              Future.delayed(Duration.zero, () {
                 router.home();
               });
             }
