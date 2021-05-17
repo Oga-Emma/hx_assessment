@@ -10,6 +10,7 @@ class User {
   var suspended;
   var createdAt;
 
+  User();
   User.fromMap(Map<String, dynamic> data) {
     id = data["_id"];
     email = data["email"];
