@@ -16,17 +16,16 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientBackground(
-      child: FutureBuilder<User>(
+      child: FutureBuilder<bool>(
           future: appController.getUserFromCache(),
           builder: (context, snapshot) {
-            print(snapshot.data);
-            if (snapshot.hasData) {
+            if (snapshot.hasError || (snapshot.hasData && !snapshot.data)) {
               Future.delayed(Duration.zero, () {
-                router.home();
-              });
-            } else if (snapshot.hasError) {
-              Future.delayed(Duration(seconds: 3), () {
                 router.login();
+              });
+            } else if (snapshot.hasData && snapshot.data) {
+              Future.delayed(Duration(seconds: 3), () {
+                router.home();
               });
             }
             return Center(

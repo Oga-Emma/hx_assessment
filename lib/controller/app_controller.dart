@@ -13,9 +13,14 @@ class AppController extends GetxController {
 
   User get user => _user;
 
-  Future<User> getUserFromCache() async {
-    user = await cache.getUser();
-    return user;
+  Future<bool> getUserFromCache() async {
+    try {
+      user = await cache.getUser();
+
+      return user != null;
+    } catch (err) {
+      return false;
+    }
   }
 
   Future logout() async {
